@@ -23,8 +23,6 @@ public class SignIn extends AppCompatActivity {
 
     // We instantiate the public variables that will store the adminId, the adminRole and the roleId;
     public static int STUDENT_ID;
-    public static String ADMIN_ROLE_NAME;
-    public static int ROLE_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,13 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.isepdevappmobilestudent.classes.DBtable.Component;
+import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
 import com.example.isepdevappmobilestudent.classes.DBtable.Student;
 
 import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin33.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin34.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -377,4 +379,51 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "', " + studentNumber +  ")";
         this.getWritableDatabase().execSQL(insertNewItemSql);
     }
+
+    public ArrayList<ComponentScore> getAllComponentScores() {
+        ArrayList<ComponentScore> componentScores = new ArrayList<>();
+        String sql = "select * from ComponentScore";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex("score"));
+                @SuppressLint("Range") int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
+                @SuppressLint("Range") int studentId = cursor.getInt(cursor.getColumnIndex("studentId"));
+
+                ComponentScore componentScore = new ComponentScore();
+                componentScore.setId(id);
+                componentScore.setScore(score);
+                componentScore.setComponentId(componentId);
+                componentScore.setStudentId(studentId);
+
+                componentScores.add(componentScore);
+                cursor.moveToNext();
+            }
+        }
+        return componentScores;
+    }
+
+    public ArrayList<Component> getAllComponents() {
+        ArrayList<Component> components = new ArrayList<>();
+        String sql = "select * from Component";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+                @SuppressLint("Range") int componentManagerId = cursor.getInt(cursor.getColumnIndex("componentManagerId"));
+
+                Component component = new Component();
+                component.setId(id);
+                component.setName(name);
+                component.setComponentManagerId(componentManagerId);
+
+                components.add(component);
+                cursor.moveToNext();
+            }
+        }
+        return components;
+    }
+
 }
