@@ -13,7 +13,52 @@
         android:theme="@style/Theme.ISEPDevAppMobileStudent"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.LogOut"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ModifyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OtherStudentDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TeamDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RequestReassessment"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AdminContact"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SkillScoreDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ComponentScoreDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ProfilePage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserAlreadyInDB"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserRegisteredInDatabase"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserNotInDB"
+            android:exported="false" />
+        <activity
+            android:name=".activity.IncorrectPassword"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StudentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
