@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin32.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin33.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -369,5 +369,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         }
         return students;
+    }
+
+    public void insertNewStudent(String email, String password, String firstName, String lastName, int studentNumber) {
+        String insertNewItemSql = "INSERT INTO Student " +
+                "(email, password, firstName, lastName, studentNumber) " +
+                "VALUES ('" + email + "', '" + password + "', '" + firstName + "', '" + lastName + "', " + studentNumber +  ")";
+        this.getWritableDatabase().execSQL(insertNewItemSql);
     }
 }
