@@ -660,4 +660,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
         return teamObservations;
     }
+
+    public void updateStudentProfile(int id, String firstName, String lastName, String email, String password) {
+        String sql = "UPDATE Student SET firstName = '" + firstName + "', lastName = '" + lastName +
+                "', email = '" + email + "', password = '" + password + "' WHERE id = " + id;
+        this.getWritableDatabase().execSQL(sql);
+    }
 }
