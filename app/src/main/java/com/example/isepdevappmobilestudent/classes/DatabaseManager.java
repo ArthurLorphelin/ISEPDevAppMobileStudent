@@ -6,16 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.isepdevappmobilestudent.classes.DBtable.Admin;
 import com.example.isepdevappmobilestudent.classes.DBtable.Component;
+import com.example.isepdevappmobilestudent.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
+import com.example.isepdevappmobilestudent.classes.DBtable.Rating;
 import com.example.isepdevappmobilestudent.classes.DBtable.Skill;
+import com.example.isepdevappmobilestudent.classes.DBtable.SkillScore;
 import com.example.isepdevappmobilestudent.classes.DBtable.Student;
 
 import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin36.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin42.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -465,5 +469,104 @@ public class DatabaseManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(sql);
     }
 
+    public ArrayList<ComponentManager> getAllComponentManagers() {
+        ArrayList<ComponentManager> componentManagers = new ArrayList<>();
+        String sql = "select* from ComponentManager";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+
+                ComponentManager componentManager = new ComponentManager();
+                componentManager.setId(id);
+                componentManager.setAdminId(adminId);
+
+                componentManagers.add(componentManager);
+                cursor.moveToNext();
+            }
+        }
+        return componentManagers;
+    }
+
+    public ArrayList<Admin> getAllAdmins() {
+        // We instantiate the array variable in which all Admins will be stored
+        ArrayList<Admin> admins = new ArrayList<>();
+        String sql = "select * from Admin";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+
+        // We run the SQL String and store each admin into the array list
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
+                @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex("password"));
+                @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex("firstName"));
+                @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+                @SuppressLint("Range") int adminRoleId = cursor.getInt(cursor.getColumnIndex("adminRoleId"));
+
+                Admin admin = new Admin();
+                admin.setId(id);
+                admin.setEmail(email);
+                admin.setPassword(password);
+                admin.setFirstName(firstName);
+                admin.setLastName(lastName);
+                admin.setAdminRoleId(adminRoleId);
+
+                admins.add(admin);
+                cursor.moveToNext();
+            }
+        }
+        // We return the array list of admins
+        return admins;
+    }
+
+    public ArrayList<SkillScore> getAllSkillScores() {
+        ArrayList<SkillScore> skillScores = new ArrayList<>();
+        String sql = "select * from SkillScore";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int ratingId = cursor.getInt(cursor.getColumnIndex("ratingId"));
+                @SuppressLint("Range") int skillId = cursor.getInt(cursor.getColumnIndex("skillId"));
+                @SuppressLint("Range") String observation = cursor.getString(cursor.getColumnIndex("skillObservation"));
+                @SuppressLint("Range") int componentScoreId = cursor.getInt(cursor.getColumnIndex("componentScoreId"));
+
+                SkillScore skillScore = new SkillScore();
+                skillScore.setId(id);
+                skillScore.setRatingId(ratingId);
+                skillScore.setSkillId(skillId);
+                skillScore.setSkillObservation(observation);
+                skillScore.setComponentScoreId(componentScoreId);
+
+                skillScores.add(skillScore);
+                cursor.moveToNext();
+            }
+        }
+        return skillScores;
+    }
+
+    public ArrayList<Rating> getAllRatings() {
+        ArrayList<Rating> ratings = new ArrayList<>();
+        String sql = "select * from Rating";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int value = cursor.getInt(cursor.getColumnIndex("value"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+
+                Rating rating = new Rating();
+                rating.setId(id);
+                rating.setValue(value);
+                rating.setName(name);
+
+                ratings.add(rating);
+                cursor.moveToNext();
+            }
+        }
+        return ratings;
+    }
 
 }

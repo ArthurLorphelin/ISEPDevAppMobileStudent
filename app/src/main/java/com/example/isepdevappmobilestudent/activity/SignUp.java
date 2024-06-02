@@ -85,14 +85,14 @@ public class SignUp extends AppCompatActivity {
                     // We create the Component Scores for this Student in the Database
                     ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
                     ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
-                    ArrayList<ComponentScore> allComponentScoresInDB = databaseManager.getAllComponentScores();
                     for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
                         databaseManager.insertComponentScore(componentIndex+1, registeredStudentId);
 
                         // We get the id of the Component Score just inserted in the DB
                         int lastInsertedComponentScoreId = 0;
+                        ArrayList<ComponentScore> allComponentScoresInDB = databaseManager.getAllComponentScores();
                         for (int componentScoreIndex = 0; componentScoreIndex < allComponentScoresInDB.size(); componentScoreIndex++) {
-                            if(allComponentScoresInDB.get(componentScoreIndex).getComponentId() == componentIndex
+                            if(allComponentScoresInDB.get(componentScoreIndex).getComponentId() == componentIndex+1
                                     && allComponentScoresInDB.get(componentScoreIndex).getStudentId() == registeredStudentId) {
                                 lastInsertedComponentScoreId = allComponentScoresInDB.get(componentScoreIndex).getId();
                             }
