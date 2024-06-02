@@ -75,8 +75,6 @@ public class TeamDetails extends AppCompatActivity {
                     studentsInSelectedTeam.add(allStudentsInDB.get(studentIndex));
                     studentsNameInSelectedTeam.add(allStudentsInDB.get(studentIndex).getFirstName() + " " + allStudentsInDB.get(studentIndex).getLastName());
                 }
-                studentsInSelectedTeam.add(allStudentsInDB.get(studentIndex));
-                studentsNameInSelectedTeam.add(allStudentsInDB.get(studentIndex).getFirstName() + " " + allStudentsInDB.get(studentIndex).getLastName());
             }
         }
 
