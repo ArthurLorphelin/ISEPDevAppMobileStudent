@@ -17,6 +17,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobilestudent.R;
+import com.example.isepdevappmobilestudent.classes.DBtable.Component;
+import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
+import com.example.isepdevappmobilestudent.classes.DBtable.Skill;
 import com.example.isepdevappmobilestudent.classes.DBtable.Student;
 import com.example.isepdevappmobilestudent.classes.DatabaseManager;
 
@@ -71,6 +74,38 @@ public class SignUp extends AppCompatActivity {
                 if (!isUserInDatabase) {
                     // We store in the Database the new Student
                     databaseManager.insertNewStudent(email, password, firstName, lastName, studentNumber);
+                    int registeredStudentId = 0;
+                    allStudentsInDB = databaseManager.getAllStudents();
+                    for (int studentIndex = 0; studentIndex < allStudentsInDB.size(); studentIndex++) {
+                        if (Objects.equals(allStudentsInDB.get(studentIndex).getEmail(), email)) {
+                            registeredStudentId = allStudentsInDB.get(studentIndex).getId();
+                        }
+                    }
+
+                    // We create the Component Scores for this Student in the Database
+                    ArrayList<Component> allComponentsInDB = databaseManager.getAllComponents();
+                    ArrayList<Skill> allSkillsInDB = databaseManager.getAllSkills();
+                    ArrayList<ComponentScore> allComponentScoresInDB = databaseManager.getAllComponentScores();
+                    for (int componentIndex = 0; componentIndex < allComponentsInDB.size(); componentIndex++) {
+                        databaseManager.insertComponentScore(componentIndex+1, registeredStudentId);
+
+                        // We get the id of the Component Score just inserted in the DB
+                        int lastInsertedComponentScoreId = 0;
+                        for (int componentScoreIndex = 0; componentScoreIndex < allComponentScoresInDB.size(); componentScoreIndex++) {
+                            if(allComponentScoresInDB.get(componentScoreIndex).getComponentId() == componentIndex
+                                    && allComponentScoresInDB.get(componentScoreIndex).getStudentId() == registeredStudentId) {
+                                lastInsertedComponentScoreId = allComponentScoresInDB.get(componentScoreIndex).getId();
+                            }
+                        }
+
+                        // We create the Skill Scores for this Student for this Component Score in the Database
+                        for (int skillIndex = 0; skillIndex < allSkillsInDB.size(); skillIndex++) {
+                            if (allSkillsInDB.get(skillIndex).getComponentId() == allComponentsInDB.get(componentIndex).getId()) {
+                                databaseManager.insertSkillScore(skillIndex+1, lastInsertedComponentScoreId);
+                            }
+                        }
+                    }
+
                     Intent userRegisteredInDB = new Intent(getApplicationContext(), UserRegisteredInDatabase.class);
                     startActivity(userRegisteredInDB);
                 } else {

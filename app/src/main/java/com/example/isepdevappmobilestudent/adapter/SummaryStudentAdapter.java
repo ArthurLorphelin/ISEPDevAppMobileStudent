@@ -40,7 +40,6 @@ public class SummaryStudentAdapter extends ArrayAdapter<ComponentScore> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_two_items, parent, false);
         }
 
-        /*
         // We display in the first part : the name of the Component
         TextView textViewFirstItem = convertView.findViewById(R.id.list_view_two_items_first_item);
         TextView textViewSecondItem = convertView.findViewById(R.id.list_view_two_items_second_item);
@@ -61,8 +60,6 @@ public class SummaryStudentAdapter extends ArrayAdapter<ComponentScore> {
         String score = currentComponentScore.getScore() + "/20";
         textViewSecondItem.setText(score);
 
-
-         */
         return convertView;
     }
 }

@@ -8,13 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.isepdevappmobilestudent.classes.DBtable.Component;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
+import com.example.isepdevappmobilestudent.classes.DBtable.Skill;
 import com.example.isepdevappmobilestudent.classes.DBtable.Student;
 
 import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     // We instantiate the Database name and version that will be stored locally
-    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin34.db";
+    private static final String DATABASE_NAME = "IsepDevAppMobileArthurLorphelin36.db";
     private static final int DATABASE_VERSION = 1;
 
     // We instantiate the number of Groups per SchoolYear and the number of Teams per Group
@@ -425,5 +426,44 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
         return components;
     }
+
+    public void insertComponentScore(int componentId, int studentId) {
+        String sql = "INSERT INTO ComponentScore (componentId, studentId) " +
+                "VALUES (" + componentId + ", " + studentId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
+    public ArrayList<Skill> getAllSkills() {
+        ArrayList<Skill> skills = new ArrayList<>();
+        String sql = "select * from Skill";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
+                @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex("description"));
+                @SuppressLint("Range") String linkToViewDetails = cursor.getString(cursor.getColumnIndex("linkToViewDetails"));
+                @SuppressLint("Range") int componentId = cursor.getInt(cursor.getColumnIndex("componentId"));
+
+                Skill skill = new Skill();
+                skill.setId(id);
+                skill.setTitle(title);
+                skill.setDescription(description);
+                skill.setLinkToViewDetails(linkToViewDetails);
+                skill.setComponentId(componentId);
+
+                skills.add(skill);
+                cursor.moveToNext();
+            }
+        }
+        return skills;
+    }
+
+    public void insertSkillScore(int skillId, int componentScoreId) {
+        String sql = "INSERT INTO SkillScore (skillId, componentScoreId) " +
+                "VALUES (" + skillId + ", " + componentScoreId + ")";
+        this.getWritableDatabase().execSQL(sql);
+    }
+
 
 }
