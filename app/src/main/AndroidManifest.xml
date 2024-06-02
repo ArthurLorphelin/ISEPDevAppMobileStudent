@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ISEPDevAppMobileStudent"
         tools:targetApi="31">
         <activity
+            android:name=".activity.OtherStudentDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TeamDetails"
+            android:exported="false" />
+        <activity
             android:name=".activity.RequestReassessment"
             android:exported="false" />
         <activity

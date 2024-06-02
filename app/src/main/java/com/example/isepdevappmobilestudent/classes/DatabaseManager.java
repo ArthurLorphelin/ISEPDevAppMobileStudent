@@ -16,6 +16,8 @@ import com.example.isepdevappmobilestudent.classes.DBtable.Rating;
 import com.example.isepdevappmobilestudent.classes.DBtable.Skill;
 import com.example.isepdevappmobilestudent.classes.DBtable.SkillScore;
 import com.example.isepdevappmobilestudent.classes.DBtable.Student;
+import com.example.isepdevappmobilestudent.classes.DBtable.Team;
+import com.example.isepdevappmobilestudent.classes.DBtable.TeamObservation;
 
 import java.util.ArrayList;
 
@@ -611,5 +613,51 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         }
         return moduleManagers;
+    }
+
+    public ArrayList<Team> getAllTeams() {
+        ArrayList<Team> teams = new ArrayList<>();
+        String sql = "select * from Team";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+                @SuppressLint("Range") int groupId = cursor.getInt(cursor.getColumnIndex("groupId"));
+
+                Team team = new Team();
+                team.setId(id);
+                team.setName(name);
+                team.setGroupId(groupId);
+
+                teams.add(team);
+                cursor.moveToNext();
+            }
+        }
+        return teams;
+    }
+
+    public ArrayList<TeamObservation> getAllTeamObservations() {
+        ArrayList<TeamObservation> teamObservations = new ArrayList<>();
+        String sql = "select * from TeamObservation";
+        Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int skillId = cursor.getInt(cursor.getColumnIndex("skillId"));
+                @SuppressLint("Range") int teamId = cursor.getInt(cursor.getColumnIndex("teamId"));
+                @SuppressLint("Range") String observation = cursor.getString(cursor.getColumnIndex("observation"));
+
+                TeamObservation teamObservation = new TeamObservation();
+                teamObservation.setId(id);
+                teamObservation.setSkillId(skillId);
+                teamObservation.setTeamId(teamId);
+                teamObservation.setObservation(observation);
+
+                teamObservations.add(teamObservation);
+                cursor.moveToNext();
+            }
+        }
+        return teamObservations;
     }
 }

@@ -57,6 +57,16 @@ public class StudentActivity extends AppCompatActivity {
             }
         }
 
+        // We create the Team Details Activity
+        Button buttonTeamDetails = findViewById(R.id.go_to_team_details_list_button);
+        buttonTeamDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentTeamDetails = new Intent(getApplicationContext(), TeamDetails.class);
+                startActivity(intentTeamDetails);
+            }
+        });
+
         // We display the name of the Module Manager
         TextView textViewModuleManagerName = findViewById(R.id.module_manager_name_text_view_in_component_details);
         ArrayList<ModuleManager> allModuleManagersInDB = databaseManager.getAllModuleManagers();
