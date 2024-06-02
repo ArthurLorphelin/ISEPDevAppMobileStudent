@@ -27,12 +27,15 @@ public class AdminContact extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.admin_contact);
 
+        // We get the AdminId from the intent
+        int adminId = Integer.parseInt(getIntent().getStringExtra("adminId"));
+
         // We set the previous Page Button Activity
         ImageButton previousPageImageButton = findViewById(R.id.back_to_component_score_details);
         previousPageImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentPreviousPage = new Intent(getApplicationContext(), ComponentScoreDetails.class);
+                Intent intentPreviousPage = new Intent(getApplicationContext(), StudentActivity.class);
                 startActivity(intentPreviousPage);
             }
         });
@@ -53,7 +56,9 @@ public class AdminContact extends AppCompatActivity {
         ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
         Admin currentAdmin = new Admin();
         for (int adminIndex = 0; adminIndex < allAdminsInDB.size(); adminIndex++) {
-            currentAdmin = allAdminsInDB.get(adminIndex);
+            if (allAdminsInDB.get(adminIndex).getId() == adminId) {
+                currentAdmin = allAdminsInDB.get(adminIndex);
+            }
         }
         String adminName = currentAdmin.getFirstName() + " " + currentAdmin.getLastName();
         textViewAdminName.setText(adminName);

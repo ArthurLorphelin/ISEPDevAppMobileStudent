@@ -11,6 +11,7 @@ import com.example.isepdevappmobilestudent.classes.DBtable.AdminRole;
 import com.example.isepdevappmobilestudent.classes.DBtable.Component;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
+import com.example.isepdevappmobilestudent.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobilestudent.classes.DBtable.Rating;
 import com.example.isepdevappmobilestudent.classes.DBtable.Skill;
 import com.example.isepdevappmobilestudent.classes.DBtable.SkillScore;
@@ -590,5 +591,25 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
         }
         return adminRoles;
+    }
+
+    public ArrayList<ModuleManager> getAllModuleManagers() {
+        ArrayList<ModuleManager> moduleManagers = new ArrayList<>();
+        String sql = "select * from ModuleManager";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") int adminId = cursor.getInt(cursor.getColumnIndex("adminId"));
+
+                ModuleManager moduleManager = new ModuleManager();
+                moduleManager.setId(id);
+                moduleManager.setAdminId(adminId);
+
+                moduleManagers.add(moduleManager);
+                cursor.moveToNext();
+            }
+        }
+        return moduleManagers;
     }
 }

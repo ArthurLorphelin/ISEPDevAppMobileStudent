@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,7 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.isepdevappmobilestudent.R;
 import com.example.isepdevappmobilestudent.adapter.SummaryStudentAdapter;
+import com.example.isepdevappmobilestudent.classes.DBtable.Admin;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
+import com.example.isepdevappmobilestudent.classes.DBtable.ModuleManager;
 import com.example.isepdevappmobilestudent.classes.DBtable.Student;
 import com.example.isepdevappmobilestudent.classes.DatabaseManager;
 
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 
 public class StudentActivity extends AppCompatActivity {
     public static ComponentScore COMPONENT_SCORE;
+    private String adminIdIntentData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,31 @@ public class StudentActivity extends AppCompatActivity {
                 componentScoresForThisStudent.add(allComponentScoresInDB.get(index));
             }
         }
+
+        // We display the name of the Module Manager
+        TextView textViewModuleManagerName = findViewById(R.id.module_manager_name_text_view_in_component_details);
+        ArrayList<ModuleManager> allModuleManagersInDB = databaseManager.getAllModuleManagers();
+        ModuleManager moduleManager = allModuleManagersInDB.get(0);
+        ArrayList<Admin> allAdminsInDB = databaseManager.getAllAdmins();
+        String moduleManagerName = "";
+        for (int adminIndex = 0; adminIndex < allAdminsInDB.size(); adminIndex++) {
+            if (allAdminsInDB.get(adminIndex).getId() == moduleManager.getAdminId()) {
+                moduleManagerName = allAdminsInDB.get(adminIndex).getFirstName() + " " + allAdminsInDB.get(adminIndex).getLastName();
+                adminIdIntentData = String.valueOf(allAdminsInDB.get(adminIndex).getId());
+            }
+        }
+        textViewModuleManagerName.setText(moduleManagerName);
+
+        // We create the Activity for Admin Contact
+        Button buttonAdminContact = findViewById(R.id.module_manager_contact_button);
+        buttonAdminContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAdminContact = new Intent(getApplicationContext(), AdminContact.class);
+                intentAdminContact.putExtra("adminId", adminIdIntentData);
+                startActivity(intentAdminContact);
+            }
+        });
 
         // We display the Summary for the Student
         ListView listViewSummary = findViewById(R.id.summary_list_view_in_student_details);

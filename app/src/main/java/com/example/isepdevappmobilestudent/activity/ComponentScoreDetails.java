@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class ComponentScoreDetails extends AppCompatActivity {
     public static SkillScore SKILL_SCORE;
-    public static int ADMIN_ID;
+    private String ADMIN_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class ComponentScoreDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentAdminContact = new Intent(getApplicationContext(), AdminContact.class);
+                intentAdminContact.putExtra("adminId", ADMIN_ID);
                 startActivity(intentAdminContact);
             }
         });
@@ -101,8 +102,8 @@ public class ComponentScoreDetails extends AppCompatActivity {
             for (int adminIndex = 0; adminIndex < allAdminsInDB.size(); adminIndex++) {
                 if (allAdminsInDB.get(adminIndex).getId() == adminId) {
                     componentManagerName = allAdminsInDB.get(adminIndex).getFirstName() + " " + allAdminsInDB.get(adminIndex).getLastName();
+                    ADMIN_ID = String.valueOf(adminId);
                     buttonComponentManagerContact.setVisibility(View.VISIBLE);
-                    ADMIN_ID = adminId;
                 }
             }
         }
