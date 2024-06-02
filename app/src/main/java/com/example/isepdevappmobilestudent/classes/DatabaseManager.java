@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.isepdevappmobilestudent.classes.DBtable.Admin;
+import com.example.isepdevappmobilestudent.classes.DBtable.AdminRole;
 import com.example.isepdevappmobilestudent.classes.DBtable.Component;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentManager;
 import com.example.isepdevappmobilestudent.classes.DBtable.ComponentScore;
@@ -569,4 +570,25 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return ratings;
     }
 
+    public ArrayList<AdminRole> getAllAdminRoles() {
+        ArrayList<AdminRole> adminRoles = new ArrayList<>();
+        String sql = "SELECT * FROM AdminRole";
+        @SuppressLint("Recycle") Cursor cursor = this.getWritableDatabase().rawQuery(sql, null);
+
+        // We run the SQL String and store each admin into the array list
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
+
+                AdminRole adminRole = new AdminRole();
+                adminRole.setId(id);
+                adminRole.setName(name);
+
+                adminRoles.add(adminRole);
+                cursor.moveToNext();
+            }
+        }
+        return adminRoles;
+    }
 }

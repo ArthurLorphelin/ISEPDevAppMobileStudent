@@ -1,20 +1,148 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AdminContact">
+    tools:context=".activity.AdminContact"
+    android:background="@color/white">
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="#D3D3D3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="120dp"
+            android:text="Contact"
+            android:textSize="30sp"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/profile_image_button_in_admin_contact"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ic_profile_image"
+            android:visibility="visible">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/back_to_component_score_details"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:visibility="visible"
+            android:background="@drawable/ic_previous_page">
+        </ImageButton>
+
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Admin Contact"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/black">
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginStart="15dp">
 
-    </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Information : "
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="40dp">
+        </TextView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin name : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/admin_name_in_admin_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full name"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin Role : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/admin_role_in_admin_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Role"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student mail : "
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/admin_email_in_admin_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="arlo10448@isep.eleve.fr"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
