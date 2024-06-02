@@ -128,7 +128,7 @@
             app:backgroundTint="#8B0000"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:text="Modify Score and Observation"
+            android:text="Request Reassessment"
             android:textSize="18sp"
             android:textColor="@color/white">
         </Button>
