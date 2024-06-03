@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -65,6 +66,16 @@ public class TeamDetails extends AppCompatActivity {
             }
         }
         textViewMenuItemTeamName.setText(currentTeam.getName());
+
+        // We create the Activty for The Score Button
+        Button buttonViewScores = findViewById(R.id.go_to_team_details_list_button);
+        buttonViewScores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentStudentMenu = new Intent(getApplicationContext(), StudentActivity.class);
+                startActivity(intentStudentMenu);
+            }
+        });
 
         // We get the Students that are in the Team
         ArrayList<Student> studentsInSelectedTeam = new ArrayList<>();
